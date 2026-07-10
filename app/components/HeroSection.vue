@@ -31,7 +31,9 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
     </div>
     <div class="absolute inset-0 bg-gradient-to-b from-nebula-900/60 via-nebula-900/75 to-nebula-900" />
     <div class="absolute inset-0 bg-gradient-to-r from-nebula-900/70 via-transparent to-nebula-900/40" />
-    <div class="pointer-events-none absolute inset-0 bg-dotgrid animate-dot-pan opacity-[0.32]" />
+    <ClientOnly>
+      <TwinklingDots />
+    </ClientOnly>
 
     <div class="pointer-events-none absolute -left-32 top-16 h-96 w-96 rounded-full bg-brand-pink/20 blur-[120px] animate-blob-drift" />
     <div

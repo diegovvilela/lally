@@ -139,6 +139,16 @@ body {
   animation: dot-pan 26s linear infinite;
 }
 
+@keyframes dot-twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.8); }
+  50% { opacity: 0.9; transform: scale(1.35); }
+}
+
+.animate-dot-twinkle {
+  opacity: 0.5;
+  animation: dot-twinkle 4s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1;
@@ -151,7 +161,11 @@ body {
   .animate-float-slow,
   .animate-blob-drift,
   .animate-dot-pan,
-  .animate-click-ping {
+  .animate-click-ping,
+  .animate-dot-twinkle {
     animation: none;
+  }
+  .animate-dot-twinkle {
+    opacity: 0.4;
   }
 }
