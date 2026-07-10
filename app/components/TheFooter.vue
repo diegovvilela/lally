@@ -3,8 +3,7 @@ const links = [
   { href: '#o-que-mudou', label: 'Como funciona' },
   { href: '#quem-somos', label: 'Quem somos' },
   { href: '#faq', label: 'FAQ' },
-  { href: '#autoavaliacao', label: 'Autoavaliação' },
-  { href: '#contato', label: 'Falar com especialista' }
+  { href: '#autoavaliacao', label: 'Autoavaliação' }
 ]
 </script>
 

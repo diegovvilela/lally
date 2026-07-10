@@ -1,89 +1,161 @@
 <script setup lang="ts">
-const factors = [
-  { label: 'PGR', covered: true },
-  { label: 'Psicossociais', covered: true },
-  { label: 'Inventário', covered: false },
-  { label: 'Plano de ação', covered: false },
-  { label: 'Evidências', covered: false }
+const phases = ['Inicial', 'Parcial', 'Em adequação', 'Gestão contínua']
+const activePhase = 1
+
+const gaps = [
+  'PGR existente',
+  'Riscos psicossociais parcialmente mapeados',
+  'Inventário precisa revisão',
+  'Plano de ação pendente',
+  'Evidências dispersas'
 ]
 
-const orbitDurations = [18, 22, 26, 30, 34]
-const orbitDirections = ['normal', 'reverse', 'normal', 'reverse', 'normal']
+const MATURITY = 62
 
-const RADIUS = 110
-const STROKE = 14
-const CIRCUMFERENCE = 2 * Math.PI * RADIUS
-const FILL_FRACTION = 0.45
-const ARC_LENGTH = CIRCUMFERENCE * FILL_FRACTION
+interface Stage {
+  revealLevel: number
+  top: number
+  left: number
+  duration: number
+  ping: boolean
+}
+
+const stages: Stage[] = [
+  { revealLevel: 1, top: 27, left: 90, duration: 900, ping: true },
+  { revealLevel: 2, top: 39, left: 37, duration: 900, ping: true },
+  { revealLevel: 3, top: 55, left: 8, duration: 700, ping: true },
+  { revealLevel: 4, top: 60.5, left: 8, duration: 700, ping: true },
+  { revealLevel: 5, top: 66, left: 8, duration: 700, ping: true },
+  { revealLevel: 6, top: 71.5, left: 8, duration: 700, ping: true },
+  { revealLevel: 7, top: 77, left: 8, duration: 700, ping: true },
+  { revealLevel: 8, top: 90, left: 50, duration: 900, ping: true },
+  { revealLevel: 8, top: 90, left: 50, duration: 2400, ping: false },
+  { revealLevel: 0, top: 27, left: 90, duration: 500, ping: false }
+]
+
+const revealLevel = ref(0)
+const cursorTop = ref(stages[0].top)
+const cursorLeft = ref(stages[0].left)
+const pingKey = ref(0)
+const showCursor = ref(false)
+
+const barWidth = computed(() => (revealLevel.value >= 1 ? `${MATURITY}%` : '0%'))
+const gapVisible = (i: number) => revealLevel.value >= 3 + i
+const recoVisible = computed(() => revealLevel.value >= 8)
+
+let timer: ReturnType<typeof setTimeout> | undefined
+
+function runStage(index: number) {
+  const stage = stages[index]
+  revealLevel.value = stage.revealLevel
+  cursorTop.value = stage.top
+  cursorLeft.value = stage.left
+  if (stage.ping) pingKey.value += 1
+
+  timer = setTimeout(() => {
+    runStage((index + 1) % stages.length)
+  }, stage.duration)
+}
+
+onMounted(() => {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (prefersReducedMotion) {
+    revealLevel.value = 8
+    return
+  }
+  showCursor.value = true
+  runStage(0)
+})
+
+onUnmounted(() => {
+  if (timer) clearTimeout(timer)
+})
 </script>
 
 <template>
-  <div>
-    <div class="relative mx-auto aspect-square w-full max-w-[300px]">
-      <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
-        <div class="h-[70%] w-[70%] rounded-full bg-brand-pink/25 blur-3xl" />
+  <div class="relative">
+    <div class="pointer-events-none absolute -left-10 -top-10 h-40 w-40 rounded-full bg-brand-pink/25 blur-[80px]" />
+    <div class="pointer-events-none absolute -bottom-10 -right-6 h-36 w-36 rounded-full bg-[#8b5cf6]/20 blur-[80px]" />
+
+    <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-nebula-800/80 p-6 shadow-glow-lg backdrop-blur-xl sm:p-8">
+      <div class="flex items-center gap-2">
+        <span class="h-1.5 w-1.5 rounded-full bg-brand-pink" />
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-ice/70">Diagnóstico NR-1</p>
       </div>
 
-      <svg viewBox="0 0 300 300" class="absolute inset-0 z-10 h-full w-full">
-        <circle :cx="150" :cy="150" :r="RADIUS" fill="none" stroke="rgba(255,255,255,0.1)" :stroke-width="STROKE" />
-        <circle
-          :cx="150"
-          :cy="150"
-          :r="RADIUS"
-          fill="none"
-          stroke="#E72787"
-          opacity="0.35"
-          :stroke-width="STROKE + 10"
-          stroke-linecap="round"
-          :stroke-dasharray="`${ARC_LENGTH} ${CIRCUMFERENCE - ARC_LENGTH}`"
-          transform="rotate(-90 150 150)"
-          style="filter: blur(6px)"
-        />
-        <circle
-          :cx="150"
-          :cy="150"
-          :r="RADIUS"
-          fill="none"
-          stroke="#E72787"
-          :stroke-width="STROKE"
-          stroke-linecap="round"
-          :stroke-dasharray="`${ARC_LENGTH} ${CIRCUMFERENCE - ARC_LENGTH}`"
-          transform="rotate(-90 150 150)"
-        />
-      </svg>
+      <div class="mt-6">
+        <p class="text-[11px] uppercase tracking-wide text-brand-ice/50">Status atual</p>
+        <p class="mt-1 font-display text-xl text-white sm:text-2xl">Parcialmente preparada</p>
+      </div>
+
+      <div class="mt-6">
+        <div class="flex items-center justify-between text-[11px] text-brand-ice/60">
+          <span>Nível de maturidade</span>
+          <span class="font-semibold text-brand-pink">{{ MATURITY }}%</span>
+        </div>
+        <div class="mt-2 h-2 w-full overflow-hidden rounded-full bg-white/10">
+          <div
+            class="h-full rounded-full bg-gradient-to-r from-brand-pink to-[#c86ef2] transition-[width] duration-[900ms] ease-out"
+            :style="{ width: barWidth }"
+          />
+        </div>
+      </div>
+
+      <div class="mt-7">
+        <div class="relative flex justify-between">
+          <div class="absolute left-0 right-0 top-[5px] h-px bg-white/10" />
+          <div
+            v-for="(phase, i) in phases"
+            :key="phase"
+            class="relative z-10 flex flex-1 flex-col items-center gap-2 px-0.5"
+          >
+            <span
+              class="h-2.5 w-2.5 rounded-full transition-colors duration-500"
+              :class="i === activePhase && revealLevel >= 2 ? 'bg-brand-pink shadow-glow' : 'bg-white/20'"
+            />
+            <span
+              class="text-center text-[9.5px] leading-tight transition-colors duration-500 sm:text-[10px]"
+              :class="i === activePhase && revealLevel >= 2 ? 'font-semibold text-white' : 'text-brand-ice/40'"
+            >
+              {{ phase }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-7 border-t border-white/10 pt-5">
+        <p class="text-[11px] uppercase tracking-wide text-brand-ice/50">Lacunas identificadas</p>
+        <div class="mt-3 flex flex-col gap-2.5">
+          <div
+            v-for="(gap, i) in gaps"
+            :key="gap"
+            class="flex items-start gap-2.5 text-sm text-brand-ice/80 transition-all duration-500"
+            :class="gapVisible(i) ? 'translate-x-0 opacity-100' : '-translate-x-1 opacity-0'"
+          >
+            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-pink/60" />
+            <span>{{ gap }}</span>
+          </div>
+        </div>
+      </div>
 
       <div
-        v-for="(factor, i) in factors"
-        :key="factor.label"
-        class="absolute inset-[13.5%] z-10 animate-orbit-spin"
-        :style="{ animationDuration: `${orbitDurations[i]}s`, animationDirection: orbitDirections[i] }"
+        class="mt-7 rounded-2xl border border-brand-pink/25 bg-brand-pink/10 p-4 transition-all duration-500"
+        :class="recoVisible ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-0'"
       >
-        <span
-          class="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full"
-          :class="factor.covered ? 'h-3 w-3 bg-brand-pink shadow-glow' : 'h-2.5 w-2.5 border border-white/30 bg-nebula-900/60'"
-        />
+        <p class="text-[11px] font-semibold uppercase tracking-wide text-brand-pink">Próximo passo recomendado</p>
+        <p class="mt-1.5 text-sm leading-relaxed text-white/90">
+          Revisar documentação e estruturar plano de ação.
+        </p>
       </div>
 
       <div
-        v-for="n in 3"
-        :key="n"
-        class="pointer-events-none absolute left-1/2 top-1/2 h-[18%] w-[18%] rounded-full border-2 border-brand-pink/50 animate-sonar-ping"
-        :style="{ animationDelay: `${(n - 1)}s` }"
-      />
-
-      <span class="absolute left-1/2 top-1/2 z-20 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-pink shadow-glow animate-pulse-soft" />
-
-      <div class="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center px-[22%] text-center">
-        <p class="font-display text-lg text-white sm:text-xl">Estruturação</p>
-        <p class="mt-1 text-[10px] uppercase tracking-wide text-brand-ice/50">Nível estimado de adequação</p>
+        v-if="showCursor"
+        class="pointer-events-none absolute z-20"
+        :style="{ top: `${cursorTop}%`, left: `${cursorLeft}%`, transition: 'top 700ms ease-in-out, left 700ms ease-in-out' }"
+      >
+        <span :key="pingKey" class="absolute -left-2 -top-2 h-4 w-4 rounded-full border border-brand-pink/70 animate-click-ping" />
+        <span class="absolute -left-[5px] -top-[5px] h-2.5 w-2.5 rounded-full bg-white shadow-glow" />
       </div>
-    </div>
-
-    <div class="mt-6 flex flex-wrap justify-center gap-x-4 gap-y-2">
-      <span v-for="factor in factors" :key="factor.label" class="inline-flex items-center gap-1.5 text-[10px] text-brand-ice/70">
-        <span class="h-1.5 w-1.5 rounded-full" :class="factor.covered ? 'bg-brand-pink' : 'border border-white/40'" />
-        {{ factor.label }}
-      </span>
     </div>
   </div>
 </template>

@@ -5,8 +5,7 @@ const isScrolled = ref(false)
 const links = [
   { href: '#o-que-mudou', label: 'Como funciona' },
   { href: '#quem-somos', label: 'Quem somos' },
-  { href: '#faq', label: 'FAQ' },
-  { href: '#autoavaliacao', label: 'Autoavaliação' }
+  { href: '#faq', label: 'FAQ' }
 ]
 
 function closeMenu() {
@@ -55,10 +54,10 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 
       <div class="hidden lg:block">
         <a
-          href="#contato"
+          href="#autoavaliacao"
           class="rounded-full bg-brand-pink px-5 py-2.5 text-sm font-semibold text-white shadow-card transition duration-200 hover:bg-[#c91f73]"
         >
-          Falar com especialista
+          Fazer autoavaliação
         </a>
       </div>
 
@@ -102,11 +101,11 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
             {{ link.label }}
           </a>
           <a
-            href="#contato"
+            href="#autoavaliacao"
             class="mt-2 rounded-full bg-brand-pink px-5 py-3 text-center font-semibold text-white shadow-card"
             @click="closeMenu"
           >
-            Falar com especialista
+            Fazer autoavaliação
           </a>
         </nav>
       </div>

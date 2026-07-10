@@ -20,7 +20,7 @@ const steps = [
 </script>
 
 <template>
-  <section id="o-que-mudou" class="relative overflow-hidden scroll-mt-24 bg-white py-20 sm:py-28">
+  <section id="o-que-mudou" class="relative overflow-hidden scroll-mt-24 border-t border-ink-900/10 bg-white py-20 sm:py-28">
     <div class="pointer-events-none absolute inset-0 bg-dotgrid animate-dot-pan opacity-[0.18]" />
     <div class="pointer-events-none absolute -right-28 top-1/3 h-72 w-72 rounded-full bg-brand-pink/[0.05] blur-[100px] animate-blob-drift" style="animation-delay: 10s" />
 

@@ -31,7 +31,7 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
     </div>
     <div class="absolute inset-0 bg-gradient-to-b from-nebula-900/60 via-nebula-900/75 to-nebula-900" />
     <div class="absolute inset-0 bg-gradient-to-r from-nebula-900/70 via-transparent to-nebula-900/40" />
-    <div class="pointer-events-none absolute inset-0 bg-dotgrid animate-dot-pan opacity-[0.16]" />
+    <div class="pointer-events-none absolute inset-0 bg-dotgrid animate-dot-pan opacity-[0.32]" />
 
     <div class="pointer-events-none absolute -left-32 top-16 h-96 w-96 rounded-full bg-brand-pink/20 blur-[120px] animate-blob-drift" />
     <div
@@ -55,34 +55,18 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
           relacionados ao trabalho — com diagnóstico, documentação e plano de ação alinhados ao GRO/PGR.
         </p>
 
-        <div class="mt-9 flex flex-wrap items-center gap-4">
+        <div class="mt-9">
           <a
             href="#autoavaliacao"
-            class="rounded-full bg-brand-pink px-7 py-3.5 text-sm font-semibold text-white shadow-glow transition duration-200 hover:scale-[1.03] hover:bg-[#c91f73]"
+            class="inline-flex rounded-full bg-brand-pink px-7 py-3.5 text-sm font-semibold text-white shadow-glow transition duration-200 hover:scale-[1.03] hover:bg-[#c91f73]"
           >
             Entender minha situação
-          </a>
-          <a
-            href="#contato"
-            class="rounded-full border border-white/20 px-7 py-3.5 text-sm font-semibold text-white/90 backdrop-blur-md transition duration-200 hover:border-white/60 hover:text-white"
-          >
-            Falar com especialista
           </a>
         </div>
       </div>
 
       <div v-reveal style="transition-delay: 120ms" class="lg:pl-6">
-        <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.06] p-7 shadow-glow-lg backdrop-blur-xl sm:p-8">
-          <p class="text-center text-xs font-semibold uppercase tracking-[0.2em] text-brand-ice/70">
-            Órbita de adequação
-          </p>
-
-          <AdequacyOrbit class="mt-6" />
-
-          <p class="mx-auto mt-5 max-w-xs text-center text-xs leading-relaxed text-brand-ice/50">
-            Ilustração — cada empresa tem sua própria órbita de adequação.
-          </p>
-        </div>
+        <AdequacyOrbit />
       </div>
     </div>
 

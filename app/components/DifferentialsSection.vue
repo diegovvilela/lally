@@ -24,7 +24,7 @@ const differentials = [
 </script>
 
 <template>
-  <section class="relative overflow-hidden bg-surface-soft py-20 sm:py-28">
+  <section class="relative overflow-hidden border-t border-ink-900/10 bg-surface-soft py-20 sm:py-28">
     <div class="pointer-events-none absolute inset-0 bg-dotgrid animate-dot-pan opacity-[0.18]" />
     <div class="pointer-events-none absolute -left-28 bottom-0 h-72 w-72 rounded-full bg-brand-pink/[0.06] blur-[100px] animate-blob-drift" style="animation-delay: 3s" />
 
