@@ -7,25 +7,46 @@ interface Dot {
   duration: number
 }
 
-const COLS = 22
-const ROWS = 13
+const SPACING = 46
 
-const dots: Dot[] = []
-for (let r = 0; r < ROWS; r++) {
-  for (let c = 0; c < COLS; c++) {
-    dots.push({
-      left: (c / (COLS - 1)) * 100,
-      top: (r / (ROWS - 1)) * 100,
-      size: Math.random() > 0.82 ? 3 : 2,
-      delay: Math.random() * 5,
-      duration: 2.8 + Math.random() * 3.2
-    })
+const rootEl = ref<HTMLElement | null>(null)
+const dots = ref<Dot[]>([])
+
+function buildDots() {
+  const el = rootEl.value
+  if (!el) return
+  const { width, height } = el.getBoundingClientRect()
+  if (!width || !height) return
+
+  const cols = Math.max(2, Math.round(width / SPACING))
+  const rows = Math.max(2, Math.round(height / SPACING))
+  const list: Dot[] = []
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      list.push({
+        left: (c / (cols - 1)) * 100,
+        top: (r / (rows - 1)) * 100,
+        size: Math.random() > 0.82 ? 3 : 2,
+        delay: Math.random() * 5,
+        duration: 2.8 + Math.random() * 3.2
+      })
+    }
   }
+
+  dots.value = list
 }
+
+onMounted(() => {
+  buildDots()
+  window.addEventListener('resize', buildDots)
+})
+
+onUnmounted(() => window.removeEventListener('resize', buildDots))
 </script>
 
 <template>
-  <div class="pointer-events-none absolute inset-0 overflow-hidden">
+  <div ref="rootEl" class="pointer-events-none absolute inset-0 overflow-hidden">
     <span
       v-for="(dot, i) in dots"
       :key="i"

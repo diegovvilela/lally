@@ -22,7 +22,7 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 </script>
 
 <template>
-  <section class="relative isolate overflow-hidden bg-nebula-900 pb-24 pt-28 sm:pb-32 sm:pt-32">
+  <section class="relative isolate overflow-hidden bg-nebula-900 pb-24 pt-20 sm:pb-32 sm:pt-32">
     <div class="absolute inset-0" :style="{ transform: `translateY(${parallaxOffset}px)` }">
       <div
         class="absolute inset-0 scale-110 bg-cover bg-center opacity-70 animate-drift"
@@ -43,7 +43,7 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 
     <div class="relative mx-auto grid max-w-7xl gap-14 px-6 sm:px-10 lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-16">
       <div v-reveal>
-        <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-brand-ice backdrop-blur-md">
+        <div class="mb-6 hidden items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-brand-ice backdrop-blur-md sm:inline-flex">
           <span class="h-1.5 w-1.5 rounded-full bg-brand-pink" />
           Consultoria de adequação à NR-1
         </div>
@@ -67,7 +67,7 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
         </div>
       </div>
 
-      <div v-reveal style="transition-delay: 120ms" class="lg:pl-6">
+      <div v-reveal style="transition-delay: 120ms" class="hidden lg:block lg:pl-6">
         <AdequacyOrbit />
       </div>
     </div>

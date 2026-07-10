@@ -29,13 +29,15 @@ const founders: Founder[] = [
         </p>
       </div>
 
-      <div class="mx-auto mt-14 grid max-w-2xl gap-6 sm:grid-cols-2">
+      <div
+        class="mx-auto mt-14 flex max-w-2xl snap-x snap-mandatory gap-5 overflow-x-auto pb-2 -mx-6 px-6 [-ms-overflow-style:none] [scrollbar-width:none] sm:mx-auto sm:grid sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden"
+      >
         <article
           v-for="(founder, i) in founders"
           :key="founder.name + i"
           v-reveal
           :style="{ transitionDelay: `${i * 100}ms` }"
-          class="flex flex-col items-center rounded-2xl border border-ink-900/10 bg-surface-soft p-7 text-center shadow-card"
+          class="flex w-[78%] shrink-0 snap-start flex-col items-center rounded-2xl border border-ink-900/10 bg-surface-soft p-7 text-center shadow-card sm:w-auto sm:shrink"
         >
           <img v-if="founder.photo" :src="founder.photo" :alt="founder.name" class="h-20 w-20 rounded-full object-cover" />
           <span v-else class="flex h-20 w-20 items-center justify-center rounded-full bg-brand-pink/10 text-brand-pink">

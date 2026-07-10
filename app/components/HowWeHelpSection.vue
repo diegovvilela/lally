@@ -39,20 +39,24 @@ const steps = [
         </p>
       </div>
 
-      <div class="relative mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="relative mt-16">
         <div class="pointer-events-none absolute left-0 right-0 top-6 hidden h-px bg-ink-900/10 lg:block" />
         <div
-          v-for="(step, i) in steps"
-          :key="step.title"
-          v-reveal
-          :style="{ transitionDelay: `${i * 100}ms` }"
-          class="relative flex flex-col items-start"
+          class="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2 -mx-6 px-6 [-ms-overflow-style:none] [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-8 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4 [&::-webkit-scrollbar]:hidden"
         >
-          <span class="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-brand-pink font-display text-lg font-semibold text-white shadow-card">
-            {{ i + 1 }}
-          </span>
-          <h3 class="mt-5 font-display text-lg text-ink-900">{{ step.title }}</h3>
-          <p class="mt-2 text-sm leading-relaxed text-ink-500">{{ step.text }}</p>
+          <div
+            v-for="(step, i) in steps"
+            :key="step.title"
+            v-reveal
+            :style="{ transitionDelay: `${i * 100}ms` }"
+            class="relative flex w-[78%] shrink-0 snap-start flex-col items-start sm:w-auto sm:shrink"
+          >
+            <span class="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-brand-pink font-display text-lg font-semibold text-white shadow-card">
+              {{ i + 1 }}
+            </span>
+            <h3 class="mt-5 font-display text-lg text-ink-900">{{ step.title }}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-500">{{ step.text }}</p>
+          </div>
         </div>
       </div>
     </div>
