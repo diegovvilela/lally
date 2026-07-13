@@ -1,13 +1,14 @@
 <script setup lang="ts">
 interface Founder {
   name: string
-  role: string
   photo: string | null
 }
 
 const founders: Founder[] = [
-  { name: 'Sócio-fundador', role: 'Direito e Compliance', photo: null },
-  { name: 'Sócio-fundadora', role: 'Gestão de Riscos e SST', photo: null }
+  { name: 'Camila Brito', photo: '/team/camila brito.png' },
+  { name: 'Camila Vilela', photo: '/team/camila vilela.png' },
+  { name: 'Giulio Franchi', photo: '/team/giulio franchi.png' },
+  { name: 'Pablo Jacinto', photo: '/team/pablo jacinto.png' }
 ]
 </script>
 
@@ -29,8 +30,12 @@ const founders: Founder[] = [
         </p>
       </div>
 
+      <p v-reveal class="mt-14 text-center text-xs font-semibold uppercase tracking-[0.2em] text-brand-pink">
+        Equipe L.ally
+      </p>
+
       <div
-        class="mx-auto mt-14 flex max-w-2xl snap-x snap-mandatory gap-5 overflow-x-auto pb-2 -mx-6 px-6 [-ms-overflow-style:none] [scrollbar-width:none] sm:mx-auto sm:grid sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden"
+        class="mx-auto mt-6 flex max-w-4xl snap-x snap-mandatory gap-5 overflow-x-auto pb-2 -mx-6 px-6 [-ms-overflow-style:none] [scrollbar-width:none] sm:mx-auto sm:grid sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4 [&::-webkit-scrollbar]:hidden"
       >
         <article
           v-for="(founder, i) in founders"
@@ -46,7 +51,6 @@ const founders: Founder[] = [
             </svg>
           </span>
           <p class="mt-4 font-display text-base text-ink-900">{{ founder.name }}</p>
-          <p class="mt-1 text-sm text-ink-500">{{ founder.role }}</p>
         </article>
       </div>
     </div>
