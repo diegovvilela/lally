@@ -5,10 +5,10 @@ interface Founder {
 }
 
 const founders: Founder[] = [
-  { name: 'Camila Brito', photo: '/team/camila brito.png' },
+  { name: 'Pablo Jacinto', photo: '/team/pablo jacinto.png' },
   { name: 'Camila Vilela', photo: '/team/camila vilela.png' },
-  { name: 'Giulio Franchi', photo: '/team/giulio franchi.png' },
-  { name: 'Pablo Jacinto', photo: '/team/pablo jacinto.png' }
+  { name: 'Camila Brito', photo: '/team/camila brito.png' },
+  { name: 'Giulio Franchi', photo: '/team/giulio franchi.png' }
 ]
 </script>
 
@@ -44,9 +44,9 @@ const founders: Founder[] = [
           :style="{ transitionDelay: `${i * 100}ms` }"
           class="flex w-[78%] shrink-0 snap-start flex-col items-center rounded-2xl border border-ink-900/10 bg-surface-soft p-7 text-center shadow-card sm:w-auto sm:shrink"
         >
-          <img v-if="founder.photo" :src="founder.photo" :alt="founder.name" class="h-20 w-20 rounded-full object-cover" />
-          <span v-else class="flex h-20 w-20 items-center justify-center rounded-full bg-brand-pink/10 text-brand-pink">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <img v-if="founder.photo" :src="founder.photo" :alt="founder.name" class="h-36 w-36 rounded-full object-cover shadow-card sm:h-40 sm:w-40" />
+          <span v-else class="flex h-36 w-36 items-center justify-center rounded-full bg-brand-pink/10 text-brand-pink sm:h-40 sm:w-40">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.964 0a9 9 0 10-11.964 0m11.964 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
           </span>
